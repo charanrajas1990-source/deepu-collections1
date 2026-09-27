@@ -183,15 +183,21 @@ function NewProductForm() {
   const onSubmit = async (values: FormValues) => {
     setSubmitting(true);
     try {
-      const supabase = createClient();
-      const { error } = await supabase.from('products').insert([
-        {
+      const res = await fetch('/api/admin/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           ...values,
           images: imageUrls,
           is_active: true,
-        },
-      ]);
-      if (error) throw error;
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        throw new Error(data.error || 'Failed to save product.');
+      }
+
       setToast('Product saved successfully!');
       setTimeout(() => {
         router.push('/admin/products');

@@ -14,7 +14,7 @@ interface Product {
   price: number;
   stock: number;
   is_active: boolean;
-  thumbnail_url: string | null;
+  thumbnail: string | null;
 }
 
 function StockBadge({ stock }: { stock: number }) {
@@ -94,7 +94,7 @@ function ProductsContent() {
       const supabase = createClient();
       const { data, error } = await supabase
         .from('products')
-        .select('id, sku, name, category, price, stock, is_active, thumbnail_url')
+        .select('id, sku, name, category, price, stock, is_active, thumbnail')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -128,16 +128,23 @@ function ProductsContent() {
 
   const handleToggleActive = async (product: Product) => {
     try {
-      const supabase = createClient();
-      await supabase
-        .from('products')
-        .update({ is_active: !product.is_active })
-        .eq('id', product.id);
+      const res = await fetch('/api/admin/products', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: product.id,
+          is_active: !product.is_active,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) throw new Error(data.error || 'Failed to update');
+
       setProducts((prev) =>
         prev.map((p) => (p.id === product.id ? { ...p, is_active: !p.is_active } : p))
       );
-    } catch {
-      alert('Failed to update product status.');
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Failed to update product status.';
+      alert(msg);
     }
   };
 
@@ -145,13 +152,17 @@ function ProductsContent() {
     if (!deleteId) return;
     setDeleting(true);
     try {
-      const supabase = createClient();
-      const { error } = await supabase.from('products').delete().eq('id', deleteId);
-      if (error) throw error;
+      const res = await fetch(`/api/admin/products?id=${encodeURIComponent(deleteId)}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) throw new Error(data.error || 'Failed to delete');
+
       setProducts((prev) => prev.filter((p) => p.id !== deleteId));
       setDeleteId(null);
-    } catch {
-      alert('Failed to delete product.');
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Failed to delete product.';
+      alert(msg);
     } finally {
       setDeleting(false);
     }
@@ -235,10 +246,10 @@ function ProductsContent() {
                 filtered.map((product) => (
                   <tr key={product.id} className="hover:bg-white/3 transition-colors">
                     <td className="px-4 py-3">
-                      {product.thumbnail_url ? (
+                      {product.thumbnail ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
-                          src={product.thumbnail_url}
+                          src={product.thumbnail}
                           alt={product.name}
                           className="w-10 h-10 rounded-lg object-cover border border-[#D4AF37]/20"
                         />

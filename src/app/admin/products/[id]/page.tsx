@@ -209,7 +209,7 @@ export default function EditProductPage() {
         is_new_arrival: data.is_new_arrival ?? false,
         is_best_seller: data.is_best_seller ?? false,
         is_active: data.is_active ?? true,
-        thumbnail_url: data.thumbnail_url || '',
+        thumbnail_url: data.thumbnail || data.thumbnail_url || '',
         care_instructions: data.care_instructions || '',
       });
 
@@ -237,12 +237,21 @@ export default function EditProductPage() {
   const onSubmit = async (values: FormValues) => {
     setSubmitting(true);
     try {
-      const supabase = createClient();
-      const { error } = await supabase
-        .from('products')
-        .update({ ...values, images: imageUrls })
-        .eq('id', id);
-      if (error) throw error;
+      const res = await fetch('/api/admin/products', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...values,
+          id,
+          images: imageUrls,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        throw new Error(data.error || 'Failed to update product.');
+      }
+
       setToast('Product updated successfully!');
       setTimeout(() => router.push('/admin/products'), 1500);
     } catch (err: unknown) {
@@ -256,12 +265,17 @@ export default function EditProductPage() {
   const handleDelete = async () => {
     setDeleting(true);
     try {
-      const supabase = createClient();
-      const { error } = await supabase.from('products').delete().eq('id', id);
-      if (error) throw error;
+      const res = await fetch(`/api/admin/products?id=${encodeURIComponent(id)}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        throw new Error(data.error || 'Failed to delete product.');
+      }
       router.push('/admin/products');
-    } catch {
-      setToast('Error: Failed to delete product.');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to delete product.';
+      setToast(`Error: ${message}`);
     } finally {
       setDeleting(false);
       setShowDeleteConfirm(false);
@@ -270,13 +284,24 @@ export default function EditProductPage() {
 
   const handleQuickToggle = async (field: 'is_active' | 'is_featured' | 'is_new_arrival', current: boolean) => {
     try {
-      const supabase = createClient();
-      await supabase.from('products').update({ [field]: !current }).eq('id', id);
+      const res = await fetch('/api/admin/products', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id,
+          [field]: !current,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        throw new Error(data.error || 'Failed to update.');
+      }
       setValue(field, !current);
       setToast(`${field.replace('is_', '').replace('_', ' ')} updated!`);
       setTimeout(() => setToast(''), 2000);
-    } catch {
-      setToast('Error: Failed to update.');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to update.';
+      setToast(`Error: ${message}`);
     }
   };
 
