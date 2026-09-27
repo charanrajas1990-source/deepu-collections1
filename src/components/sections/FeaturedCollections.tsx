@@ -4,88 +4,118 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
+const WHATSAPP_NUMBER = "919182319328";
+
 const collections = [
   {
-    name: "Banarasi",
-    desc: "Woven with zari, fine silk and opulent embroidery.",
-    img: "https://images.unsplash.com/photo-1610189013580-5a3d75ea94f5?auto=format&fit=crop&q=80&w=800",
+    name: "Georgette Sarees",
+    desc: "Lightweight, flowing fabric with a beautiful drape for any occasion.",
+    img: "https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
-    name: "Kanjeevaram",
-    desc: "The queen of silks, characterized by gold-dipped silver thread.",
-    img: "https://images.unsplash.com/photo-1596455581295-d1fb789ab23a?auto=format&fit=crop&q=80&w=800",
+    name: "Pattu Sarees",
+    desc: "Rich silk weaves with gold zari, perfect for weddings and festivities.",
+    img: "https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
-    name: "Organza",
-    desc: "Lightweight, sheer, and perfect for modern silhouettes.",
-    img: "https://images.unsplash.com/photo-1615886737525-45a8947614e5?auto=format&fit=crop&q=80&w=800",
+    name: "Fancy Sarees",
+    desc: "Contemporary designs with embellishments for a glamorous look.",
+    img: "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
-    name: "Chanderi",
-    desc: "Traditional ethnic fabric characterized by its sheer texture.",
-    img: "https://images.unsplash.com/photo-1583391733975-69dc67ebdf56?auto=format&fit=crop&q=80&w=800",
+    name: "Chinon Sarees",
+    desc: "Soft, elegant chinon fabric with a luxurious matte finish.",
+    img: "https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=800",
+  },
+  {
+    name: "Chiffon Sarees",
+    desc: "Sheer, airy chiffon for a graceful and feminine silhouette.",
+    img: "https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=800",
+  },
+  {
+    name: "Matka Crepe",
+    desc: "Textured crepe with a natural matte finish, ideal for casual elegance.",
+    img: "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=800",
+  },
+  {
+    name: "Digital Sarees",
+    desc: "Vibrant digital prints with bold, artistic patterns.",
+    img: "https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=800",
+  },
+  {
+    name: "Tussore Sarees",
+    desc: "Natural raw silk with earthy textures and understated elegance.",
+    img: "https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=800",
+  },
+  {
+    name: "Instagram Trending",
+    desc: "Viral styles from Instagram — be the first to wear the latest trends.",
+    img: "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
 ];
 
 export default function FeaturedCollections() {
   return (
-    <section className="py-24 bg-[#0D0612]">
-      <div className="container mx-auto px-6 md:px-12">
-        <div className="flex flex-col items-center mb-16 text-center">
+    <section className="py-16 md:py-24 bg-[#0D0612]">
+      <div className="container mx-auto px-4 md:px-12">
+        <div className="flex flex-col items-center mb-10 md:mb-16 text-center">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="font-serif text-3xl md:text-5xl text-luxury-gold mb-4"
+            className="font-serif text-2xl md:text-5xl text-luxury-gold mb-3 md:mb-4"
           >
-            Curated Collections
+            Our Collections
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-luxury-ivory/70 max-w-2xl text-lg font-light"
+            className="text-luxury-ivory/70 max-w-2xl text-sm md:text-lg font-light px-4"
           >
-            Explore our handpicked selections, representing the pinnacle of Indian craftsmanship.
+            From everyday elegance to bridal grandeur — explore our full range of sarees.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {collections.map((col, idx) => (
-            <motion.div
-              key={col.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.15 }}
-              className="group relative overflow-hidden rounded-t-full rounded-b-md aspect-[3/4] cursor-pointer bg-luxury-purple-900"
-            >
-              <Image
-                src={col.img}
-                alt={col.name}
-                fill
-                className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-luxury-purple-900/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
-              
-              <div className="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <h3 className="font-serif text-2xl text-luxury-gold mb-2">{col.name}</h3>
-                <p className="text-luxury-ivory/80 text-sm font-light mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                  {col.desc}
-                </p>
+        {/* Horizontal scrollable on mobile, grid on desktop */}
+        <div className="flex gap-3 md:gap-6 overflow-x-auto pb-4 md:pb-0 md:grid md:grid-cols-3 lg:grid-cols-9 scrollbar-hide snap-x snap-mandatory">
+          {collections.map((col, idx) => {
+            const enquiryMsg = encodeURIComponent(`Hi, I'm interested in ${col.name}. Please share available designs and pricing.`);
+            const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${enquiryMsg}`;
+            return (
+              <motion.a
+                key={col.name}
+                href={waUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.06 }}
+                className="group relative overflow-hidden rounded-t-full rounded-b-md flex-shrink-0 w-[30vw] md:w-auto aspect-[2/3] cursor-pointer bg-luxury-purple-900 snap-start"
+              >
+                <Image
+                  src={col.img}
+                  alt={`${col.name} — Deepu's Collection`}
+                  fill
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  sizes="(max-width: 768px) 30vw, 11vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
                 
-                <div className="flex items-center space-x-2 text-luxury-ivory text-sm font-medium uppercase tracking-wider group-hover:text-luxury-gold transition-colors">
-                  <span>Explore</span>
-                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-2 transition-transform" />
+                <div className="absolute inset-0 p-2 flex flex-col justify-end">
+                  <h3 className="font-serif text-[10px] sm:text-xs md:text-[11px] lg:text-[10px] xl:text-xs text-luxury-gold leading-tight mb-0.5">{col.name}</h3>
+                  <div className="flex items-center gap-0.5 text-luxury-ivory/80 text-[8px] font-medium uppercase tracking-wider group-hover:text-luxury-gold transition-colors">
+                    <span className="hidden sm:inline">Enquire</span>
+                    <ArrowRight className="w-2.5 h-2.5 transform group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
-              </div>
-              
-              {/* Subtle gold animated border line at the bottom */}
-              <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-luxury-gold group-hover:w-full transition-all duration-700 ease-in-out" />
-            </motion.div>
-          ))}
+                <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-luxury-gold group-hover:w-full transition-all duration-500" />
+              </motion.a>
+            );
+          })}
         </div>
       </div>
     </section>

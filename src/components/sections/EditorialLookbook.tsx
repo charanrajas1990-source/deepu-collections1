@@ -27,18 +27,18 @@ export default function EditorialLookbook() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[300px]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[300px]">
           {/* Large Featured Image */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="md:col-span-8 row-span-2 relative group overflow-hidden"
+            className="col-span-1 md:col-span-8 md:row-span-2 relative group overflow-hidden"
           >
             <Image
-              src="https://images.unsplash.com/photo-1583391733958-d25e61c2c366?auto=format&fit=crop&q=80&w=1600"
-              alt="Editorial Main"
+              src="https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              alt="Editorial luxury saree draping — Deepu's Collection lookbook"
               fill
               className="object-cover transition-transform duration-1000 group-hover:scale-105"
             />
@@ -51,27 +51,27 @@ export default function EditorialLookbook() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="md:col-span-4 row-span-1 relative group overflow-hidden"
+            className="col-span-1 md:col-span-4 md:row-span-1 relative group overflow-hidden"
           >
             <Image
-              src="https://images.unsplash.com/photo-1610189013580-5a3d75ea94f5?auto=format&fit=crop&q=80&w=800"
-              alt="Editorial Side 1"
+              src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="Banarasi silk saree editorial — Deepu's Collection"
               fill
               className="object-cover transition-transform duration-1000 group-hover:scale-110"
             />
           </motion.div>
 
-          {/* Bottom Right Image */}
+          {/* Bottom Right — Text Card */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="md:col-span-4 row-span-1 relative group overflow-hidden bg-luxury-purple-800 flex items-center justify-center p-8 text-center"
+            className="col-span-1 md:col-span-4 md:row-span-1 relative group overflow-hidden bg-luxury-purple-800 flex items-center justify-center p-6 md:p-8 text-center"
           >
             <div>
               <p className="text-luxury-gold tracking-[0.2em] uppercase text-xs mb-3">SS 2024</p>
-              <h3 className="font-serif text-2xl text-luxury-ivory mb-4">The Regal <br/> Collection</h3>
+              <h3 className="font-serif text-xl md:text-2xl text-luxury-ivory mb-4">The Regal <br/> Collection</h3>
               <button className="text-xs uppercase tracking-widest border-b border-luxury-gold pb-1 hover:text-luxury-gold transition-colors">
                 View Lookbook
               </button>

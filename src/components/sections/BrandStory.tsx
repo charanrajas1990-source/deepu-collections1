@@ -5,21 +5,21 @@ import Image from "next/image";
 
 export default function BrandStory() {
   return (
-    <section className="py-24 bg-[#0D0612] relative overflow-hidden">
-      <div className="container mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section className="py-16 md:py-24 bg-[#0D0612] relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
           
-          {/* Image Side with Parallax Effect */}
+          {/* Image Side */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1 }}
-            className="relative h-[600px] w-full rounded-tr-[100px] rounded-bl-[100px] overflow-hidden"
+            className="relative h-[320px] md:h-[600px] w-full rounded-tr-[50px] rounded-bl-[50px] md:rounded-tr-[100px] md:rounded-bl-[100px] overflow-hidden"
           >
             <Image
-              src="https://images.unsplash.com/photo-1620011508210-90fb4b360ea1?auto=format&fit=crop&q=80&w=1200"
-              alt="Editorial Saree Fashion"
+              src="https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="Handcrafted luxury saree — Deepu's Collection heritage"
               fill
               className="object-cover"
             />
@@ -32,25 +32,25 @@ export default function BrandStory() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="flex flex-col justify-center space-y-8"
+            className="flex flex-col justify-center space-y-6 md:space-y-8"
           >
             <div>
-              <p className="text-luxury-gold tracking-[0.3em] uppercase text-xs font-semibold mb-4">
+              <p className="text-luxury-gold tracking-[0.3em] uppercase text-xs font-semibold mb-3 md:mb-4">
                 Our Heritage
               </p>
-              <h2 className="font-serif text-4xl md:text-5xl text-luxury-ivory leading-tight mb-6">
+              <h2 className="font-serif text-3xl md:text-5xl text-luxury-ivory leading-tight mb-4 md:mb-6">
                 Woven With Tradition.<br/>Designed For You.
               </h2>
             </div>
             
-            <div className="space-y-6 text-luxury-ivory/80 font-light text-lg leading-relaxed">
+            <div className="space-y-4 md:space-y-6 text-luxury-ivory/80 font-light text-base md:text-lg leading-relaxed">
               <p>
-                At Aura, we believe that a saree is more than just six yards of fabric; it is a canvas of art, heritage, and timeless elegance.
+                At Deepu&apos;s Collection, we believe that a saree is more than just six yards of fabric — it is a canvas of art, heritage, and timeless elegance.
               </p>
               <p>
                 Our collections are meticulously handcrafted by skilled artisans across India, celebrating centuries-old weaving techniques while embracing contemporary aesthetics.
               </p>
-              <p>
+              <p className="hidden md:block">
                 Experience the luxury of pure silk, the delicate grace of organza, and the royal opulence of Banarasi, tailored for the modern woman who values tradition and style.
               </p>
             </div>
@@ -70,3 +70,4 @@ export default function BrandStory() {
     </section>
   );
 }
+

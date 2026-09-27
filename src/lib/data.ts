@@ -37,18 +37,18 @@ export const products: Product[] = [
     collection: "Heritage",
     type: "Banarasi",
     images: [
-      "https://images.unsplash.com/photo-1610030469983-98e550d615ef?auto=format&fit=crop&q=80&w=1200",
-      "https://images.unsplash.com/photo-1596455581295-d1fb789ab23a?auto=format&fit=crop&q=80&w=1200",
-      "https://images.unsplash.com/photo-1615886737525-45a8947614e5?auto=format&fit=crop&q=80&w=1200",
+      "https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1200",
     ],
-    thumbnail: "https://images.unsplash.com/photo-1610030469983-98e550d615ef?auto=format&fit=crop&q=80&w=600",
+    thumbnail: "https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=600",
     stock: 5,
     isFeatured: true,
     isNewArrival: false,
     isBestSeller: true,
     rating: 4.9,
     reviews: 124,
-    sku: "AURA-BNR-001"
+    sku: "DC-BNR-001"
   },
   {
     id: "p_002",
@@ -63,17 +63,17 @@ export const products: Product[] = [
     collection: "Modern Classics",
     type: "Organza",
     images: [
-      "https://images.unsplash.com/photo-1584282862083-d021c1762145?auto=format&fit=crop&q=80&w=1200",
-      "https://images.unsplash.com/photo-1583391733958-d15f11100257?auto=format&fit=crop&q=80&w=1200",
+      "https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1200",
     ],
-    thumbnail: "https://images.unsplash.com/photo-1584282862083-d021c1762145?auto=format&fit=crop&q=80&w=600",
+    thumbnail: "https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=600",
     stock: 2,
     isFeatured: false,
     isNewArrival: true,
     isBestSeller: false,
     rating: 4.7,
     reviews: 45,
-    sku: "AURA-ORG-002"
+    sku: "DC-ORG-002"
   },
   {
     id: "p_003",
@@ -89,16 +89,16 @@ export const products: Product[] = [
     collection: "Heritage",
     type: "Kanjeevaram",
     images: [
-      "https://images.unsplash.com/photo-1589810635656-3c07802b1b36?auto=format&fit=crop&q=80&w=1200",
+      "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1200",
     ],
-    thumbnail: "https://images.unsplash.com/photo-1589810635656-3c07802b1b36?auto=format&fit=crop&q=80&w=600",
+    thumbnail: "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=600",
     stock: 0,
     isFeatured: true,
     isNewArrival: false,
     isBestSeller: true,
     rating: 5.0,
     reviews: 89,
-    sku: "AURA-KNJ-003"
+    sku: "DC-KNJ-003"
   },
   {
     id: "p_004",
@@ -113,16 +113,16 @@ export const products: Product[] = [
     collection: "Cocktail",
     type: "Georgette",
     images: [
-      "https://images.unsplash.com/photo-1610115598687-0b1a0302b1a9?auto=format&fit=crop&q=80&w=1200",
+      "https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=1200",
     ],
-    thumbnail: "https://images.unsplash.com/photo-1610115598687-0b1a0302b1a9?auto=format&fit=crop&q=80&w=600",
+    thumbnail: "https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=600",
     stock: 12,
     isFeatured: false,
     isNewArrival: true,
     isBestSeller: false,
     rating: 4.5,
     reviews: 32,
-    sku: "AURA-GEO-004"
+    sku: "DC-GEO-004"
   },
   {
     id: "p_005",
@@ -137,18 +137,19 @@ export const products: Product[] = [
     collection: "Modern Classics",
     type: "Tissue",
     images: [
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=1200",
+      "https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=1200",
     ],
-    thumbnail: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=600",
+    thumbnail: "https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=600",
     stock: 3,
     isFeatured: true,
     isNewArrival: true,
     isBestSeller: false,
     rating: 4.8,
     reviews: 18,
-    sku: "AURA-TIS-005"
+    sku: "DC-TIS-005"
   }
 ];
+
 
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find(p => p.slug === slug);

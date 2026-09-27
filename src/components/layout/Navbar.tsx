@@ -80,26 +80,36 @@ export default function Navbar() {
 
           {/* Icons (Right) */}
           <div className="flex items-center space-x-4 md:space-x-6">
-            <button className="text-luxury-ivory hover:text-luxury-gold transition-colors">
+            <button 
+              aria-label="Search products"
+              className="text-luxury-ivory hover:text-luxury-gold transition-colors p-1"
+            >
               <Search className="w-5 h-5" />
             </button>
-            <button className="hidden md:block text-luxury-ivory hover:text-luxury-gold transition-colors">
+            <button 
+              aria-label="Wishlist"
+              className="hidden md:block text-luxury-ivory hover:text-luxury-gold transition-colors p-1"
+            >
               <Heart className="w-5 h-5" />
             </button>
             <button 
               onClick={() => setIsCartOpen(true)}
-              className="text-luxury-ivory hover:text-luxury-gold transition-colors relative"
+              aria-label={`Shopping cart${cartItemCount > 0 ? `, ${cartItemCount} items` : ''}`}
+              className="text-luxury-ivory hover:text-luxury-gold transition-colors relative p-1"
             >
               <ShoppingBag className="w-5 h-5" />
-              <span className="absolute -top-2 -right-2 bg-luxury-gold text-luxury-purple-900 text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
-                {cartItemCount}
-              </span>
+              {cartItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-luxury-gold text-luxury-purple-900 text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
+                  {cartItemCount}
+                </span>
+              )}
             </button>
             
             {/* Mobile Menu Toggle (Right) */}
             <button
-              className="md:hidden text-luxury-ivory hover:text-luxury-gold transition-colors ml-2"
+              className="md:hidden text-luxury-ivory hover:text-luxury-gold transition-colors ml-2 p-1"
               onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open menu"
             >
               <Menu className="w-6 h-6" />
             </button>

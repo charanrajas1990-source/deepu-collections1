@@ -5,12 +5,12 @@ import Image from "next/image";
 import { Camera } from "lucide-react";
 
 const images = [
-  "https://images.unsplash.com/photo-1615887023516-9b6bbb798246?auto=format&fit=crop&q=80&w=600",
-  "https://images.unsplash.com/photo-1596455607563-ad6193f76b19?auto=format&fit=crop&q=80&w=600",
-  "https://images.unsplash.com/photo-1610030469983-98e550d615ef?auto=format&fit=crop&q=80&w=600",
-  "https://images.unsplash.com/photo-1584282862083-d021c1762145?auto=format&fit=crop&q=80&w=600",
-  "https://images.unsplash.com/photo-1615886737525-45a8947614e5?auto=format&fit=crop&q=80&w=600",
-  "https://images.unsplash.com/photo-1583391733975-69dc67ebdf56?auto=format&fit=crop&q=80&w=600",
+  "https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=600&sat=-20",
+  "https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=600&hue=20",
+  "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=600&sat=20",
 ];
 
 export default function SocialGrid() {
@@ -24,7 +24,7 @@ export default function SocialGrid() {
           className="mb-12"
         >
           <p className="text-luxury-gold tracking-[0.2em] uppercase text-xs mb-3 flex items-center justify-center space-x-2">
-            <Camera className="w-4 h-4" /> <span>@aurasarees</span>
+            <Camera className="w-4 h-4" /> <span>@deepuscollection</span>
           </p>
           <h2 className="font-serif text-3xl md:text-5xl text-luxury-ivory mb-6">
             Follow Our Story

@@ -11,6 +11,19 @@ body {
   color: var(--foreground);
   background-color: var(--background);
   /* The layout wrapper will handle fonts */
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+}
+
+/* Faster tap response on mobile for all interactive elements */
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+/* Smooth momentum scrolling on iOS */
+html {
+  -webkit-overflow-scrolling: touch;
 }
 
 @layer utilities {
