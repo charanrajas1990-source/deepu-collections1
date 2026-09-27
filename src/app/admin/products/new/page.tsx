@@ -24,24 +24,48 @@ const CATEGORIES = [
 const ZARI_TYPES = ['Pure Zari', 'Half-Fine Zari', 'Tested Zari', 'No Zari'];
 const WEAVE_TYPES = ['Handloom', 'Powerloom', 'Machine'];
 
+const numRequired = (msg = 'Price must be positive') =>
+  z.preprocess(
+    (v) => (v === '' || v === null || v === undefined ? undefined : Number(v)),
+    z.number().positive(msg)
+  );
+
+const numOptional = (min = 0) =>
+  z.preprocess(
+    (v) => (v === '' || v === null || v === undefined ? undefined : Number(v)),
+    z.number().min(min).optional()
+  );
+
+const numDefault = (def = 0, min = 0) =>
+  z.preprocess(
+    (v) => (v === '' || v === null || v === undefined ? def : Number(v)),
+    z.number().min(min)
+  );
+
+const numIntDefault = (def = 0, min = 0, msg = 'Stock cannot be negative') =>
+  z.preprocess(
+    (v) => (v === '' || v === null || v === undefined ? def : Number(v)),
+    z.number().int().min(min, msg)
+  );
+
 const schema = z.object({
   name: z.string().min(2, 'Name is required'),
   sku: z.string().min(2, 'SKU is required'),
   slug: z.string().optional(),
   description: z.string().optional(),
   category: z.string().min(1, 'Category is required'),
-  price: z.number().positive('Price must be positive'),
-  original_price: z.number().min(0).optional(),
-  gst_rate: z.number().min(0),
+  price: numRequired('Price must be positive'),
+  original_price: numOptional(0),
+  gst_rate: numDefault(5, 0),
   fabric: z.string().optional(),
   color: z.string().optional(),
   zari_type: z.string().optional(),
   origin: z.string().optional(),
   weave_type: z.string().optional(),
-  weight_grams: z.number().min(0).optional(),
-  saree_length_meters: z.number().min(0),
+  weight_grams: numOptional(0),
+  saree_length_meters: numDefault(5.5, 0),
   blouse_piece: z.boolean(),
-  stock: z.number().int().min(0, 'Stock cannot be negative'),
+  stock: numIntDefault(0, 0, 'Stock cannot be negative'),
   is_featured: z.boolean(),
   is_new_arrival: z.boolean(),
   is_best_seller: z.boolean(),

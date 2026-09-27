@@ -139,6 +139,7 @@ export default function ImageUploader({
                 src={url}
                 alt={`Product image ${i + 1}`}
                 fill
+                unoptimized
                 className="object-cover"
                 sizes="150px"
               />
