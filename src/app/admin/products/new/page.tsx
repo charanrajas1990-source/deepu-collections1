@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm, type Resolver } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -91,12 +91,14 @@ const inputCls =
 
 const checkboxCls = 'w-4 h-4 accent-[#D4AF37] rounded';
 
-export default function NewProductPage() {
+function NewProductForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const preselectedCategory = searchParams.get('category') || '';
   const [toast, setToast] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-
+  const [categories, setCategories] = useState<string[]>(CATEGORIES);
 
   const {
     register,
@@ -107,6 +109,7 @@ export default function NewProductPage() {
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues>,
     defaultValues: {
+      category: preselectedCategory,
       gst_rate: 5,
       saree_length_meters: 5.5,
       blouse_piece: false,
@@ -116,6 +119,31 @@ export default function NewProductPage() {
       stock: 0,
     },
   });
+
+  useEffect(() => {
+    if (preselectedCategory) {
+      setValue('category', preselectedCategory);
+    }
+  }, [preselectedCategory, setValue]);
+
+  useEffect(() => {
+    const fetchCats = async () => {
+      try {
+        const supabase = createClient();
+        const { data } = await supabase
+          .from('categories')
+          .select('name')
+          .eq('is_active', true)
+          .order('display_order', { ascending: true });
+        if (data && data.length > 0) {
+          setCategories(data.map((c) => c.name));
+        }
+      } catch {
+        // keep fallback
+      }
+    };
+    fetchCats();
+  }, []);
 
   const nameValue = watch('name');
 
@@ -215,7 +243,7 @@ export default function NewProductPage() {
             <Field label="Category" required error={errors.category?.message}>
               <select {...register('category')} className={inputCls}>
                 <option value="">Select a category</option>
-                {CATEGORIES.map((c) => (
+                {categories.map((c) => (
                   <option key={c} value={c}>
                     {c}
                   </option>
@@ -424,5 +452,13 @@ export default function NewProductPage() {
         </div>
       </form>
     </div>
+  );
+}
+
+export default function NewProductPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-[#FAF9F6]/40 text-center">Loading product form...</div>}>
+      <NewProductForm />
+    </Suspense>
   );
 }

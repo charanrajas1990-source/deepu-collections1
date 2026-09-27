@@ -1,12 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const WHATSAPP_NUMBER = "919182319328";
 const WHATSAPP_MESSAGE =
   "Hi, I'm interested in your saree collection! Please share your latest designs and pricing.";
 
 export default function WhatsAppButton() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) return null;
+
   const whatsappUrl = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(WHATSAPP_MESSAGE);
 
   return (

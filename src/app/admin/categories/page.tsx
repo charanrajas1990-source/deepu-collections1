@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import { createClient } from '@/lib/supabase';
 import { Plus, ChevronUp, ChevronDown, Pencil, Trash2, X, Check } from 'lucide-react';
 
@@ -325,7 +326,13 @@ export default function CategoriesPage() {
                           </button>
                         </div>
                       ) : (
-                        <span className="text-[#FAF9F6] text-sm font-medium">{cat.name}</span>
+                        <Link
+                          href={`/admin/products?category=${encodeURIComponent(cat.name)}`}
+                          className="text-[#FAF9F6] text-sm font-medium hover:text-[#D4AF37] transition-colors"
+                          title="View products in this category"
+                        >
+                          {cat.name}
+                        </Link>
                       )}
                     </td>
 
@@ -345,7 +352,15 @@ export default function CategoriesPage() {
                     </td>
 
                     <td className="px-5 py-3">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <Link
+                          href={`/admin/products/new?category=${encodeURIComponent(cat.name)}`}
+                          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] hover:bg-[#D4AF37]/20 transition-colors text-xs font-medium"
+                          title={`Add product in ${cat.name}`}
+                        >
+                          <Plus size={11} />
+                          Add Product
+                        </Link>
                         <button
                           onClick={() => { setEditId(cat.id); setEditName(cat.name); }}
                           className="p-1.5 rounded-lg text-[#FAF9F6]/40 hover:text-[#D4AF37] hover:bg-[#D4AF37]/10 transition-colors"

@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Plus, Search, Pencil, Trash2, ToggleLeft, ToggleRight } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 
@@ -49,14 +49,44 @@ function SkeletonRow() {
   );
 }
 
-export default function ProductsPage() {
+function ProductsContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get('category') || '';
+
   const [products, setProducts] = useState<Product[]>([]);
   const [filtered, setFiltered] = useState<Product[]>([]);
   const [search, setSearch] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [categoryList, setCategoryList] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    if (initialCategory) {
+      setSelectedCategory(initialCategory);
+    }
+  }, [initialCategory]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const supabase = createClient();
+        const { data } = await supabase
+          .from('categories')
+          .select('name')
+          .eq('is_active', true)
+          .order('display_order', { ascending: true });
+        if (data && data.length > 0) {
+          setCategoryList(data.map((c) => c.name));
+        }
+      } catch {
+        // ignore
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const fetchProducts = useCallback(async () => {
     setLoading(true);
@@ -85,14 +115,16 @@ export default function ProductsPage() {
   useEffect(() => {
     const q = search.toLowerCase();
     setFiltered(
-      products.filter(
-        (p) =>
+      products.filter((p) => {
+        const matchSearch =
           p.name.toLowerCase().includes(q) ||
           p.sku.toLowerCase().includes(q) ||
-          p.category.toLowerCase().includes(q)
-      )
+          p.category.toLowerCase().includes(q);
+        const matchCat = !selectedCategory || p.category.toLowerCase() === selectedCategory.toLowerCase();
+        return matchSearch && matchCat;
+      })
     );
-  }, [search, products]);
+  }, [search, selectedCategory, products]);
 
   const handleToggleActive = async (product: Product) => {
     try {
@@ -144,16 +176,30 @@ export default function ProductsPage() {
         </Link>
       </div>
 
-      {/* Search */}
-      <div className="relative max-w-sm">
-        <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#FAF9F6]/30" />
-        <input
-          type="text"
-          placeholder="Search by name, SKU, category..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-9 pr-4 py-2.5 bg-[#1E0F2C] border border-[#D4AF37]/20 rounded-lg text-[#FAF9F6] placeholder-[#FAF9F6]/30 text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-colors"
-        />
+      {/* Search & Filter */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <div className="relative max-w-sm flex-1">
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#FAF9F6]/30" />
+          <input
+            type="text"
+            placeholder="Search by name, SKU..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-9 pr-4 py-2.5 bg-[#1E0F2C] border border-[#D4AF37]/20 rounded-lg text-[#FAF9F6] placeholder-[#FAF9F6]/30 text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-colors"
+          />
+        </div>
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="px-4 py-2.5 bg-[#1E0F2C] border border-[#D4AF37]/20 rounded-lg text-[#FAF9F6] text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-colors"
+        >
+          <option value="">All Categories</option>
+          {categoryList.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Table */}
@@ -283,5 +329,13 @@ export default function ProductsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-[#FAF9F6]/40 text-center">Loading products...</div>}>
+      <ProductsContent />
+    </Suspense>
   );
 }

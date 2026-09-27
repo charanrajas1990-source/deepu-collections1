@@ -102,9 +102,29 @@ export default function EditProductPage() {
   const [loadingProduct, setLoadingProduct] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>(CATEGORIES);
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const fetchCats = async () => {
+      try {
+        const supabase = createClient();
+        const { data } = await supabase
+          .from('categories')
+          .select('name')
+          .eq('is_active', true)
+          .order('display_order', { ascending: true });
+        if (data && data.length > 0) {
+          setCategories(data.map((c) => c.name));
+        }
+      } catch {
+        // keep fallback
+      }
+    };
+    fetchCats();
+  }, []);
 
   const {
     register,
@@ -340,7 +360,7 @@ export default function EditProductPage() {
             <Field label="Category" required error={errors.category?.message}>
               <select {...register('category')} className={inputCls}>
                 <option value="">Select a category</option>
-                {CATEGORIES.map((c) => (
+                {categories.map((c) => (
                   <option key={c} value={c}>{c}</option>
                 ))}
               </select>
