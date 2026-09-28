@@ -1,17 +1,42 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-
-import { getNewArrivals, formatPrice } from "@/lib/data";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase";
+import { formatPrice } from "@/lib/utils";
+
+interface NewArrivalProduct {
+  id: string;
+  name: string;
+  slug: string;
+  price: number;
+  thumbnail: string;
+  stock: number;
+}
 
 export default function NewArrivals() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  const newArrivalsData = getNewArrivals();
+  const [products, setProducts] = useState<NewArrivalProduct[]>([]);
+
+  useEffect(() => {
+    async function fetchNewArrivals() {
+      const supabase = createClient();
+      const { data } = await supabase
+        .from("products")
+        .select("id, name, slug, price, thumbnail, stock")
+        .eq("is_active", true)
+        .eq("is_new_arrival", true)
+        .order("created_at", { ascending: false })
+        .limit(8);
+      if (data) setProducts(data);
+    }
+    fetchNewArrivals();
+  }, []);
+
+  if (products.length === 0) return null;
 
   return (
     <section className="py-24 bg-luxury-purple-900 overflow-hidden" ref={containerRef}>
@@ -23,7 +48,7 @@ export default function NewArrivals() {
       </div>
 
       <div className="pl-6 md:pl-12 flex space-x-6 overflow-x-auto pb-8 scrollbar-hide snap-x">
-        {newArrivalsData.map((item, idx) => (
+        {products.map((item, idx) => (
           <motion.div 
             key={item.id}
             initial={{ opacity: 0, x: 50 }}
@@ -34,13 +59,20 @@ export default function NewArrivals() {
           >
             <Link href={`/product/${item.slug}`} className="block">
               <div className="relative aspect-[3/4] overflow-hidden mb-4 bg-[#0D0612]">
-                <Image
-                  src={item.thumbnail}
-                  alt={item.name}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 640px) 80vw, 350px"
-                />
+                {item.thumbnail ? (
+                  <Image
+                    src={item.thumbnail}
+                    alt={item.name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 640px) 80vw, 350px"
+                    unoptimized
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-luxury-purple-800 to-[#0D0612]">
+                    <span className="text-4xl">🪡</span>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-luxury-purple-900/0 group-hover:bg-luxury-purple-900/20 transition-colors duration-300" />
                 {item.stock <= 2 && item.stock > 0 && (
                   <span className="absolute top-4 right-4 bg-[#0D0612] text-luxury-gold text-xs px-3 py-1 font-semibold uppercase tracking-wider">
@@ -69,3 +101,4 @@ export default function NewArrivals() {
     </section>
   );
 }
+

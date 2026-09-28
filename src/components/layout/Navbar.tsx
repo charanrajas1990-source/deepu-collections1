@@ -36,9 +36,8 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Collections", href: "/collections" },
-    { name: "Sarees", href: "/sarees" },
-    { name: "New Arrivals", href: "/new-arrivals" },
-    { name: "About Us", href: "/about" },
+    { name: "New Arrivals", href: "/collections?filter=new-arrivals" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (

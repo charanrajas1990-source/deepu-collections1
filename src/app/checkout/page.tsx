@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+
 import Link from "next/link";
 import { ChevronLeft, Lock } from "lucide-react";
 
@@ -107,12 +107,9 @@ export default function Checkout() {
             {/* Item 1 */}
             <div className="flex space-x-4 items-center">
               <div className="relative w-16 h-24 border border-luxury-gold/30 flex-shrink-0 bg-[#0D0612]">
-                <Image 
-                  src="https://images.unsplash.com/photo-1610030469983-98e550d615ef?auto=format&fit=crop&q=80&w=400" 
-                  alt="Royal Banarasi Silk" 
-                  fill 
-                  className="object-cover opacity-80"
-                />
+                <div className="absolute inset-0 bg-gradient-to-br from-luxury-purple-800 to-[#0D0612] flex items-center justify-center">
+                  <span className="text-xl">🪡</span>
+                </div>
                 <span className="absolute -top-2 -right-2 bg-luxury-gold text-luxury-purple-900 text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                   1
                 </span>
@@ -127,12 +124,9 @@ export default function Checkout() {
             {/* Item 2 */}
             <div className="flex space-x-4 items-center">
               <div className="relative w-16 h-24 border border-luxury-gold/30 flex-shrink-0 bg-[#0D0612]">
-                <Image 
-                  src="https://images.unsplash.com/photo-1584282862083-d021c1762145?auto=format&fit=crop&q=80&w=400" 
-                  alt="Lavender Organza" 
-                  fill 
-                  className="object-cover opacity-80"
-                />
+                <div className="absolute inset-0 bg-gradient-to-br from-luxury-purple-800 to-[#0D0612] flex items-center justify-center">
+                  <span className="text-xl">🪡</span>
+                </div>
                 <span className="absolute -top-2 -right-2 bg-luxury-gold text-luxury-purple-900 text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                   1
                 </span>

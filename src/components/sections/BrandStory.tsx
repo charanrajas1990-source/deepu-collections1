@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 export default function BrandStory() {
   return (
@@ -9,21 +8,32 @@ export default function BrandStory() {
       <div className="container mx-auto px-4 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
           
-          {/* Image Side */}
+          {/* Image Side - Replaced with CSS Design */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1 }}
-            className="relative h-[320px] md:h-[600px] w-full rounded-tr-[50px] rounded-bl-[50px] md:rounded-tr-[100px] md:rounded-bl-[100px] overflow-hidden"
+            className="relative h-[320px] md:h-[600px] w-full rounded-tr-[50px] rounded-bl-[50px] md:rounded-tr-[100px] md:rounded-bl-[100px] overflow-hidden bg-gradient-to-br from-[#2A1437] via-[#160B1E] to-[#0D0612] flex items-center justify-center p-6 border border-luxury-gold/20"
           >
-            <Image
-              src="https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=1200"
-              alt="Handcrafted luxury saree — Deepu's Collection heritage"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-luxury-purple-900/20 mix-blend-multiply" />
+            {/* Decorative pattern/elements */}
+            <div className="absolute inset-4 border border-luxury-gold/30 rounded-tr-[40px] rounded-bl-[40px] md:rounded-tr-[80px] md:rounded-bl-[80px] pointer-events-none" />
+            <div className="absolute inset-8 border border-luxury-gold/10 rounded-tr-[30px] rounded-bl-[30px] md:rounded-tr-[60px] md:rounded-bl-[60px] pointer-events-none" />
+            
+            {/* Elegant text overlay */}
+            <div className="relative flex flex-col items-center justify-center text-center">
+              <span className="font-serif text-8xl md:text-9xl text-luxury-gold/20 select-none">
+                D
+              </span>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
+                 <span className="font-serif text-2xl md:text-4xl text-luxury-gold/80 tracking-widest uppercase">
+                   Heritage
+                 </span>
+              </div>
+            </div>
+            
+            {/* Decorative mandala-like radial background */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] aspect-square rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.05)_0%,transparent_60%)] pointer-events-none" />
           </motion.div>
 
           {/* Text Side */}
@@ -70,4 +80,3 @@ export default function BrandStory() {
     </section>
   );
 }
-

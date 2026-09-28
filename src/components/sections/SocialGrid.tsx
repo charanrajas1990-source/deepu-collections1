@@ -1,16 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Camera } from "lucide-react";
 
-const images = [
-  "https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=600&sat=-20",
-  "https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=600&hue=20",
-  "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=600&sat=20",
+const categories = [
+  { name: "Georgette", gradient: "from-[#2A1437] to-[#160B1E]" },
+  { name: "Pattu", gradient: "from-[#3A2222] to-[#1A0A0A]" },
+  { name: "Chiffon", gradient: "from-[#1B2A37] to-[#0A111A]" },
+  { name: "Chinon", gradient: "from-[#372A14] to-[#1E160B]" },
+  { name: "Digital", gradient: "from-[#14372A] to-[#0B1E16]" },
+  { name: "Tussore", gradient: "from-[#37142A] to-[#1E0B16]" },
 ];
 
 export default function SocialGrid() {
@@ -32,21 +31,21 @@ export default function SocialGrid() {
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
-          {images.map((img, idx) => (
+          {categories.map((cat, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="relative aspect-square group cursor-pointer overflow-hidden"
+              className={`relative aspect-square group cursor-pointer overflow-hidden bg-gradient-to-br ${cat.gradient} flex items-center justify-center border border-luxury-gold/10`}
             >
-              <Image
-                src={img}
-                alt={`Instagram look ${idx + 1}`}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-              />
+              <div className="absolute inset-2 border border-luxury-gold/5 group-hover:scale-95 transition-transform duration-500" />
+              
+              <span className="font-serif text-luxury-gold/70 text-lg md:text-xl group-hover:opacity-0 transition-opacity duration-300">
+                {cat.name}
+              </span>
+
               <div className="absolute inset-0 bg-luxury-purple-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <Camera className="text-luxury-gold w-8 h-8 scale-50 group-hover:scale-100 transition-transform duration-300" />
               </div>
